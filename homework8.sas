@@ -1,0 +1,16 @@
+libname hw8 'D:\courses\BSTcourse\survival\slides and homework\week 8';
+data addicts;
+set hw8.addicts;
+run;
+proc print ;
+run;
+proc phreg data=addicts;
+model status*SURVT(0)=dose prison/ties=efron;
+strata clinic;
+run;
+proc phreg data=addicts;
+model status*survt(0)=dose prison clinpr clindos/ties=efron;
+clinpr=clinic*prison;
+clindos=clinic*dose;
+strata clinic;
+run;
